@@ -55,8 +55,9 @@ $produtos = $produtoDAO->findAll();
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="/VarejoQualitas/index.html">
-                <img src="/VarejoQualitas/app/views/img/icon_home.png" alt="Home" width="50">Página Inicial</a>
+              <a class="nav-link active d-flex align-items-center gap-2" href="/VarejoQualitas/index.html">
+                <span>🏠</span> Página Inicial
+              </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/VarejoQualitas/app/views/classes/produtos.php">
@@ -140,5 +141,41 @@ $produtos = $produtoDAO->findAll();
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script>
+document.querySelectorAll('.form-add-carrinho').forEach(form => {
+    form.addEventListener('submit', function(e) {
+        // 1. Impede a página de recarregar
+        e.preventDefault(); 
+        
+        // 2. Captura os dados do formulário de forma automática
+        const formData = new FormData(this);
+
+        // 3. Envia os dados para o back-end via POST usando Fetch
+        fetch('carrinho_acoes.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro na requisição com o servidor');
+            }
+            return response.json(); // Transforma a resposta do PHP em um objeto JS
+        })
+        .then(data => {
+            // 4. Trata a resposta segura vinda do PHP
+            if (data.sucesso) {
+                alert(`${data.produto} adicionado ao carrinho com sucesso!`);
+                // Aqui você pode atualizar um contador de itens no menu se quiser
+            } else {
+                alert('Erro: ' + data.mensagem);
+            }
+        })
+        .catch(error => {
+            console.error('Erro no Fetch:', error);
+            alert('Não foi possível adicionar o produto. Tente novamente.');
+        });
+    });
+});
+</script>
 </body>
 </html>
