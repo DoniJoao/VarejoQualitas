@@ -1,6 +1,23 @@
 <?php
 session_start();
 
+// 1. ANTES DE TUDO: Verifica se é um pedido de remoção via link (GET)
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['remover'])) {
+    $index = filter_input(INPUT_GET, 'remover', FILTER_VALIDATE_INT);
+
+    if ($index !== false && isset($_SESSION['carrinho'][$index])) {
+        // Remove o item específico do array do carrinho
+        unset($_SESSION['carrinho'][$index]);
+        
+        // Reorganiza os índices do array para não quebrar o loop do foreach
+        $_SESSION['carrinho'] = array_values($_SESSION['carrinho']);
+    }
+
+    // Redireciona de volta para a página do carrinho instantaneamente!
+    header("Location: carrinho.php");
+    exit();
+}
+
 // Configura o cabeçalho para o navegador entender que a resposta é um JSON
 header('Content-Type: application/json; charset=utf-8');
 

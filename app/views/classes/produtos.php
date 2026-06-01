@@ -92,10 +92,21 @@ $produtos = $produtoDAO->findAll();
             font-weight: bold;
         }
         .produto img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 10px;
+            width: 100%;
+            height: 250px; /* Define uma altura fixa idêntica para todas */
+            object-fit: cover; /* Faz a imagem preencher o espaço sem esticar ou distorcer */
+            margin-bottom: 15px;
             border-radius: 5px;
+            background-color: #f8f9fa; /* Um fundo cinza sutil caso a imagem tenha transparência */
+        }
+        .produto a img {
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            cursor: pointer;
+        }
+
+        .produto a img:hover {
+            transform: scale(1.02); /* Dá um zoom bem sutil de 2% */
+            opacity: 0.9; /* Deixa a imagem levemente mais clara */
         }
         .add-carrinho {
             background-color: #007bff;
@@ -119,12 +130,14 @@ $produtos = $produtoDAO->findAll();
             <div class='col-md-4'>
                 <div class='produto shadow-sm'>
                     <!-- Imagem dinâmica vinda do banco -->
-                    <img src='<?php echo $produto['imagem']; ?>' alt='<?php echo $produto['nome']; ?>'> 
+                    <a href="<?php echo $produto['imagem']; ?>" target="_blank" title="Clique para ampliar">
+                        <img src="<?php echo $produto['imagem']; ?>" alt="<?php echo $produto['nome']; ?>"> 
+                    </a>
                     <h3><?php echo $produto['nome']; ?></h3>
                     <p>R$ <?php echo number_format($produto['preco'], 2, ',', '.'); ?></p>
                     
                     <!-- Formulário que envia os dados para o carrinho de forma segura -->
-                    <form method='POST' action='carrinho_acoes.php'>
+                    <form method='POST' action='carrinho_acoes.php' class='form-add-carrinho'>
                         <input type='hidden' name='nome' value='<?php echo $produto['nome']; ?>'>
                         <input type='hidden' name='preco' value='<?php echo $produto['preco']; ?>'>
                         <button type='submit' name='adicionar' class='add-carrinho'>Adicionar ao Carrinho</button>
