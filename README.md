@@ -2,12 +2,13 @@
 
 #### Repositório destinado a guardar um site de vendas para Qualitas Industria Eletro Mecanica, para exibir e vender produtos de Varejo.
 
-- [x] **1-Design Completo**
-- [x] **2-Página "Produtos"**
-- [x] **3-Painel Carrinho Mostrando Produtos adicionados**
-- [ ] **4-Exibir QR code no pagamento PIX**
-- [ ] **5-Configurar operação de outros meios de pagamento**
-- [x] **6-Arquivo README.md com Explicação do Projeto (GitHub)**
+- [x] **1-Arquitetura MVC**
+- [x] **2-Design Completo**
+- [x] **3-Página "Produtos"**
+- [x] **4-Painel Carrinho Mostrando Produtos adicionados**
+- [ ] **5-Exibir QR code no pagamento PIX**
+- [ ] **6-Configurar operação de outros meios de pagamento**
+- [x] **7-Arquivo README.md com Explicação do Projeto (GitHub)**
 
 ### 🛠️ Tecnologias Utilizadas
 
